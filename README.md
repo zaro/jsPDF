@@ -15,6 +15,12 @@ doc.save('Test.pdf');
 
 ### Head over to [jsPDF.com](http://jspdf.com) for the live editor and examples
 
+## Checking out the source
+
+```bash
+git clone --recursive git://github.com/MrRio/jsPDF.git
+```
+
 ## Credits
 
 Big thanks to Daniel Dotsenko from [Willow Systems Corporation](http://willow-systems.com) for making huge contributions to the codebase. 
