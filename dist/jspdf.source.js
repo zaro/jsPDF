@@ -1,4 +1,4 @@
-/** @preserve jsPDF 0.9.0rc2 ( 2013-08-07T15:00 commit ID c9c47d1de98fabb0681ad9fba049ef644f8f22ba )
+/** @preserve jsPDF 0.9.0rc2 ( 2013-12-24T14:50 commit ID 550239962cd74d57c5cb113b101c6bd472381f29 )
 Copyright (c) 2010-2012 James Hall, james@snapshotmedia.co.uk, https://github.com/MrRio/jsPDF
 Copyright (c) 2012 Willow Systems Corporation, willow-systems.com
 MIT license.
@@ -1748,7 +1748,7 @@ PubSub implementation
         If only one, first argument is given,
         treats the value as gray-scale color value.
 
-        @param {Number} r Red channel color value in range 0-255
+        @param {Number} r Red channel color value in range 0-255 or {String} r color value in hexadecimal, example: '#FFFFFF'
         @param {Number} g Green channel color value in range 0-255
         @param {Number} b Blue channel color value in range 0-255
         @function
@@ -1757,6 +1757,15 @@ PubSub implementation
         @name setTextColor
         */
         API.setTextColor = function (r, g, b) {
+            var patt = /#[0-9A-Fa-f]{6}/;
+            if ((typeof r == 'string') && patt.test(r)) {
+                var hex = r.replace('#','');
+                var bigint = parseInt(hex, 16);
+                r = (bigint >> 16) & 255;
+                g = (bigint >> 8) & 255;
+                b = bigint & 255;
+            }
+
             if ((r === 0 && g === 0 && b === 0) || (typeof g === 'undefined')) {
                 textColor = f3(r / 255) + ' g';
             } else {
@@ -6490,7 +6499,7 @@ void function(global, callback) {
 	if (typeof module === 'object') {
 		module.exports = callback();
 	} else if (typeof define === 'function') {
-		define(callback);
+		define("adler32cs",callback);
 	} else {
 		global.adler32cs = callback();
 	}
